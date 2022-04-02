@@ -12,10 +12,10 @@ function productRoutes() {
     .use(compression());
 
   productRouter
-    .get("/product:id", productControllers.getProduct)
-    .post("/newProduct", productControllers.createProduct)
-    .put("/product:id", productControllers.updateProduct)
-    .delete("/product:id", productControllers.deleteProduct);
+    .get("/product:id", productControllers.getProduct(req.body.id))
+    .post("/", productControllers.createProduct(req.body))
+    .put("/product:id", productControllers.updateProduct(req.body))
+    .delete("/product:id", productControllers.deleteProduct(req.body.id));
 
   return productRouter;
 }
