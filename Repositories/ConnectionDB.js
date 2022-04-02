@@ -1,6 +1,6 @@
 const mysql = require(`mysql`);
 require("dotenv").config();
-const config = require("../../Config/Environments");
+const config = require("../Config/Environments");
 //Information to connect to MySQL database
 const connection = mysql.createConnection({
   host: config.DB.host,
