@@ -1,5 +1,5 @@
 const express = require("express");
-const getRoutes = require("./Routes/Routes.js");
+const getRoutes = require("./Routes/Index.js");
 const app = express();
 
 class Server {
