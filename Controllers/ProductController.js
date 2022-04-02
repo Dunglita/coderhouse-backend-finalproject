@@ -1,4 +1,8 @@
 const productServices = require("../Services/ProductServices.js");
+
+//Variabe de control para habilitar/deshabilitar rutas
+const isAdmin = true;
+
 module.exports = {
   //Search product
   getProduct: async (req, res) => {

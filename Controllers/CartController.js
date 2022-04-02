@@ -1,4 +1,8 @@
 const cartServices = require("../Services/CartServices.js");
+
+//Variabe de control para habilitar/deshabilitar rutas
+const isAdmin = true;
+
 module.exports = {
   //Search cart
   getCart: async (req, res) => {
