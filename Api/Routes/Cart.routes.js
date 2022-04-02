@@ -1,22 +1,23 @@
 const express = require(`express`);
 const cors = require("cors");
 const compression = require("compression");
-const controllers = require("../../Controllers/Index.js"); //FIXME:Ver __dirname
-const cartControllers = controllers.cart;
 
-function productRoutes() {
-  const productRouter = express();
-  productRouter
+const { cart } = require("../../Controllers/Index.js"); //FIXME:Ver __dirname
+
+function cartRoutes() {
+  const cartRouter = express();
+  cartRouter
     .use(express.json())
     .use(cors({ credentials: true }))
     .use(compression());
 
-  productRouter
-    .get("/cart:id", cartControllers.getCart)
-    .post("/newCart", cartControllers.createCart)
-    .put("/cart:id", cartControllers.updateCart)
-    .delete("/cart:id", cartControllers.deleteCart);
+  cartRouter
+    .get("/:id/productos", cart.getCart(req.body.id)) //Carrito actual
+    .post("/", cart.createCart())
+    .post("/:id/products", cart.addCartProduct())
+    .delete("/:id", cart.deleteCart(req.body.id))
+    .delete("/:id/productos/:id_prod", cart.deleteCartProduct());
 
-  return productRouter;
+  return cartRouter;
 }
-module.exports = productRoutes;
+module.exports = cartRoutes;

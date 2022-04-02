@@ -1,8 +1,8 @@
 const express = require(`express`);
 const cors = require("cors");
 const compression = require("compression");
-const controllers = require("../../Controllers/Index.js"); //FIXME:Ver __dirname
-const productControllers = controllers.product;
+
+const { product } = require("../../Controllers/Index.js"); //FIXME:Ver __dirname
 
 function productRoutes() {
   const productRouter = express();
@@ -12,10 +12,10 @@ function productRoutes() {
     .use(compression());
 
   productRouter
-    .get("/product:id", productControllers.getProduct(req.body.id))
-    .post("/", productControllers.createProduct(req.body))
-    .put("/product:id", productControllers.updateProduct(req.body))
-    .delete("/product:id", productControllers.deleteProduct(req.body.id));
+    .get("/:id", product.getProduct(req.body.id))
+    .post("/", product.createProduct(req.body))
+    .put("/:id", product.updateProduct(req.body))
+    .delete("/:id", product.deleteProduct(req.body.id));
 
   return productRouter;
 }
