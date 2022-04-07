@@ -1,5 +1,7 @@
-const cartModel = require("../Domain/CartModel.js");
 const cartRepository = require("../Repositories/CartRepository.js");
+
+//Variabe de control para habilitar/deshabilitar rutas
+const isAdmin = true;
 
 module.exports = {
   getCart: async (idCart) => {
@@ -10,6 +12,7 @@ module.exports = {
       throw new Error(error.message);
     }
   },
+
   createCart: async (data) => {
     try {
       const newCart = await cartRepository.createCart(data);
@@ -18,6 +21,7 @@ module.exports = {
       throw new Error(error.message);
     }
   },
+
   addCartProduct: async (data) => {
     try {
       const newCart = await cartRepository.addCartProduct(data);
@@ -26,6 +30,7 @@ module.exports = {
       throw new Error(error.message);
     }
   },
+
   deleteCart: async (idCart) => {
     try {
       const cart = await cartRepository.deleteCart(idCart);
@@ -34,6 +39,7 @@ module.exports = {
       throw new Error(error.message);
     }
   },
+
   deleteCartProduct: async (idCart) => {
     try {
       const cart = await cartRepository.deleteCartProduct(idCart);
