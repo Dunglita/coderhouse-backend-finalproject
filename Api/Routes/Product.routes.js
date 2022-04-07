@@ -24,7 +24,6 @@ function productRoutes(router) {
     .post("/", product.createProduct)
     .put("/:id", product.updateProduct)
     .delete("/:id", product.deleteProduct);
-
   return productRouter;
 }
 module.exports = productRoutes;
