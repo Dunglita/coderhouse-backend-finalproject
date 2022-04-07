@@ -12,11 +12,11 @@ function cartRoutes() {
     .use(compression());
 
   cartRouter
-    .get("/:id/productos", cart.getCart(req.body.id)) //Carrito actual
-    .post("/", cart.createCart())
-    .post("/:id/products", cart.addCartProduct())
-    .delete("/:id", cart.deleteCart(req.body.id))
-    .delete("/:id/productos/:id_prod", cart.deleteCartProduct());
+    .get("/:id/productos", cart.getCart) //Carrito actual
+    .post("/", cart.createCart)
+    .post("/:id/products", cart.addCartProduct)
+    .delete("/:id", cart.deleteCart)
+    .delete("/:id/productos/:id_prod", cart.deleteCartProduct);
 
   return cartRouter;
 }

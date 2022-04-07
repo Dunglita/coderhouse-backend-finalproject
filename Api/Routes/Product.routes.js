@@ -1,21 +1,29 @@
 const express = require(`express`);
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const compression = require("compression");
 
 const { product } = require("../../Controllers/Index.js"); //FIXME:Ver __dirname
 
-function productRoutes() {
-  const productRouter = express();
+function productRoutes(router) {
+  const productRouter = router;
+
   productRouter
     .use(express.json())
     .use(cors({ credentials: true }))
-    .use(compression());
+    .use(compression())
+    .use(
+      bodyParser.urlencoded({
+        extended: true,
+      })
+    );
 
   productRouter
-    .get("/:id", product.getProduct(req.body.id))
-    .post("/", product.createProduct(req.body))
-    .put("/:id", product.updateProduct(req.body))
-    .delete("/:id", product.deleteProduct(req.body.id));
+    .get("/", product.getProduct)
+    .get("/:id", product.getProduct)
+    .post("/", product.createProduct)
+    .put("/:id", product.updateProduct)
+    .delete("/:id", product.deleteProduct);
 
   return productRouter;
 }
