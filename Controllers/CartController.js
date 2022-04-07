@@ -1,15 +1,11 @@
-const cartServices = require("../Services/CartServices.js");
-
-//Variabe de control para habilitar/deshabilitar rutas
-const isAdmin = true;
+const { carts } = require("../Services/Index.js");
 
 module.exports = {
   //Search cart
   getCart: async (req, res) => {
-    //const idCart = req.params.idCart;
-    const idCart = 1;
+    const idCart = req.params.id;
     try {
-      const cart = await cartServices.getCart(idCart);
+      const cart = await carts.getCart(idCart);
       return res.status(200).json({
         status: 200,
         data: cart,
@@ -22,10 +18,13 @@ module.exports = {
 
   //Create cart
   createCart: async (req, res) => {
-    //letdata = {cart: "req.body.cart", password: "req.body.password",};
-    let data = { cart: "dani", password: "ensolvers" };
+    const data = {
+      id: NULL,
+      timestamp: NULL,
+      //FIXME:ver relacion 1-n o m-n en base de datos
+    };
     try {
-      const cart = await cartServices.createCart(data);
+      const cart = await carts.createCart(data);
       return res.status(201).json({
         status: 201,
         data: cart,
@@ -38,10 +37,8 @@ module.exports = {
 
   //Add cart product
   addCartProduct: async (req, res) => {
-    //letdata = {cart: "req.body.cart", password: "req.body.password",};
-    let data = { cart: "dani", password: "ensolvers" };
     try {
-      const cart = await cartServices.addCartProduct(data);
+      const cart = await carts.addCartProduct(data);
       return res.status(201).json({
         status: 201,
         data: cart,
@@ -54,10 +51,8 @@ module.exports = {
 
   //Delete cart
   deleteCart: async (req, res) => {
-    // idCart = req.params.idCart;
-    const idCart = 1;
     try {
-      const cart = await cartServices.deleteCart(idCart);
+      const cart = await carts.deleteCart(idCart);
       return res.status(200).json({
         status: 200,
         data: cart,
@@ -70,10 +65,8 @@ module.exports = {
 
   //Delete cart
   deleteCartProduct: async (req, res) => {
-    // idCart = req.params.idCart;
-    const idCart = 1;
     try {
-      const cart = await cartServices.deleteCartProduct(idCart);
+      const cart = await carts.deleteCartProduct(idCart);
       return res.status(200).json({
         status: 200,
         data: cart,
