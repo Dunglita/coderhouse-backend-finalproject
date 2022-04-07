@@ -1,31 +1,33 @@
 const connection = require("./ConnectionDB.js");
+//Get all the products
+function getAllProducts() {
+  return new Promise((resolve, reject) => {
+    const sql = `SELECT * FROM PRODUCTO`;
+    connection.query(sql, (error, result) => {
+      if (error) {
+        return reject(error);
+      } else {
+        return resolve(result);
+      }
+    });
+  });
+}
 
 //Get product
-function getProduct(idProduct) {
+async function getProduct(idProduct) {
   const sql = `SELECT * FROM USER WHERE idProduct = ` + idProduct;
   connection.query(sql, (error, result) => {
     if (error) {
       throw new Error(error);
     } else {
       console.log(result);
-    }
-  });
-}
-
-//Get all the products
-function getAllProducts() {
-  const sql = `SELECT * FROM PRODUCTO`;
-  connection.query(sql, (error, result) => {
-    if (error) {
-      throw new Error(error);
-    } else {
       return result;
     }
   });
 }
 
 // Create product
-function createProduct(data) {
+async function createProduct(data) {
   const sql = `INSERT INTO PRODUCTS(product, password) VALUES(?, ?)`;
   const product = data.product;
   const password = data.password;
@@ -40,7 +42,7 @@ function createProduct(data) {
 }
 
 //Update product
-function updateProduct(data) {
+async function updateProduct(data) {
   const sql =
     `UPDATE USER SET product=?, password=?  WHERE idProduct=` + data.idProduct;
 
@@ -57,7 +59,7 @@ function updateProduct(data) {
 }
 
 //Delete product
-function deleteProduct(idProduct) {
+async function deleteProduct(idProduct) {
   //Call other tables delete function
 
   const sql = `DELETE FROM USER WHERE idProduct=` + idProduct;

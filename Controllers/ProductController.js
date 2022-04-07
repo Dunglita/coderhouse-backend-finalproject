@@ -6,8 +6,8 @@ module.exports = {
     const idProduct = req.params.id;
     try {
       const product = await products.getProduct(idProduct);
+      console.log(product);
       return res.status(200).json({
-        status: 200,
         data: product,
         message: "Product found succesfully",
       });
@@ -28,10 +28,10 @@ module.exports = {
       precio: req.params.precio,
       stock: req.body.stock,
     };
+
     try {
       const product = await products.createProduct(data);
       return res.status(201).json({
-        status: 201,
         data: product,
         message: "Product created succesfully",
       });
@@ -52,10 +52,10 @@ module.exports = {
       precio: req.params.precio,
       stock: req.body.stock,
     };
+
     try {
       const product = await products.updateProduct(data);
       return res.status(200).json({
-        status: 200,
         data: product,
         message: "Product updated succesfully",
       });
@@ -70,7 +70,6 @@ module.exports = {
     try {
       const product = await products.deleteProduct(idProduct);
       return res.status(200).json({
-        status: 200,
         data: product,
         message: "Product deleted succesfully",
       });

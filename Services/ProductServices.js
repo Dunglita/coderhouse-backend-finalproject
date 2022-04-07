@@ -1,17 +1,15 @@
 const productModel = require("../Domain/ProductModel.js");
-const productRepository = require("../Repositories/ProductRepository.js");
+const { products } = require("../Repositories/Index.js");
 
 //Variabe de control para habilitar/deshabilitar rutas
 const isAdmin = true;
 
 module.exports = {
   getProduct: async (idProduct) => {
-    //TODO: Ver si vale la pena poner un control extra de isNaN
     if (idProduct == undefined || idProduct == null) {
       try {
-        const product = productRepository.getAllProducts();
-        console.log(product);
-        return product;
+        const productos = await products.getAllProducts();
+        return productos;
       } catch (error) {
         throw new Error(error.message);
       }
