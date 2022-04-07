@@ -8,13 +8,25 @@ function getProduct(idProduct) {
       throw new Error(error);
     } else {
       console.log(result);
+    }
+  });
+}
+
+//Get all the products
+function getAllProducts() {
+  const sql = `SELECT * FROM PRODUCTO`;
+  connection.query(sql, (error, result) => {
+    if (error) {
+      throw new Error(error);
+    } else {
       return result;
     }
   });
 }
+
 // Create product
 function createProduct(data) {
-  const sql = `INSERT INTO product(product, password) VALUES(?, ?)`;
+  const sql = `INSERT INTO PRODUCTS(product, password) VALUES(?, ?)`;
   const product = data.product;
   const password = data.password;
 
@@ -59,6 +71,7 @@ function deleteProduct(idProduct) {
   });
 }
 module.exports = {
+  getAllProducts: getAllProducts,
   getProduct: getProduct,
   createProduct: createProduct,
   updateProduct: updateProduct,
