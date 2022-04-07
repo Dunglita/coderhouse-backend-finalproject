@@ -6,7 +6,6 @@ module.exports = {
     const idProduct = req.params.id;
     try {
       const product = await products.getProduct(idProduct);
-      console.log(product);
       return res.status(200).json({
         data: product,
         message: "Product found succesfully",
@@ -18,19 +17,8 @@ module.exports = {
 
   //Create product
   createProduct: async (req, res) => {
-    const data = {
-      id: NULL,
-      timestamp: NULL,
-      nombre: req.params.nombre,
-      descripcion: req.body.descripcion,
-      codigo: req.body.codigo,
-      url: req.params.url,
-      precio: req.params.precio,
-      stock: req.body.stock,
-    };
-
     try {
-      const product = await products.createProduct(data);
+      const product = await products.createProduct(req.query);
       return res.status(201).json({
         data: product,
         message: "Product created succesfully",
@@ -43,16 +31,15 @@ module.exports = {
   //Update product
   updateProduct: async (req, res) => {
     const data = {
-      id: req.params.id,
-      timestamp: NULL,
-      nombre: req.params.nombre,
-      descripcion: req.body.descripcion,
-      codigo: req.body.codigo,
-      url: req.params.url,
-      precio: req.params.precio,
-      stock: req.body.stock,
+      idProducto: req.params.id,
+      nombre: req.query.nombre,
+      codigo: req.query.codigo,
+      descripcion: req.query.descripcion,
+      url: req.query.url,
+      precio: req.query.precio,
+      stock: req.query.stock,
     };
-
+    console.log(data);
     try {
       const product = await products.updateProduct(data);
       return res.status(200).json({
@@ -66,9 +53,8 @@ module.exports = {
 
   //Delete product
   deleteProduct: async (req, res) => {
-    const idProduct = req.params.id;
     try {
-      const product = await products.deleteProduct(idProduct);
+      const product = await products.deleteProduct(req.params.id);
       return res.status(200).json({
         data: product,
         message: "Product deleted succesfully",

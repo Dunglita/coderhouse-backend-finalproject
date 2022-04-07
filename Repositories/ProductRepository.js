@@ -15,61 +15,87 @@ function getAllProducts() {
 
 //Get product
 async function getProduct(idProduct) {
-  const sql = `SELECT * FROM USER WHERE idProduct = ` + idProduct;
-  connection.query(sql, (error, result) => {
-    if (error) {
-      throw new Error(error);
-    } else {
-      console.log(result);
-      return result;
-    }
+  return new Promise((resolve, reject) => {
+    const sql = `SELECT * FROM PRODUCTO WHERE idProducto = ` + idProduct;
+    connection.query(sql, (error, result) => {
+      if (error) {
+        return reject(error);
+      } else {
+        return resolve(result);
+      }
+    });
   });
 }
 
 // Create product
 async function createProduct(data) {
-  const sql = `INSERT INTO PRODUCTS(product, password) VALUES(?, ?)`;
-  const product = data.product;
-  const password = data.password;
+  return new Promise((resolve, reject) => {
+    const sql = `INSERT INTO PRODUCTO(idProducto, timestamp, nombre, descripcion, codigo, url, precio, stock) VALUES(?, ?, ?, ?, ?, ?, ?, ?)`;
+    const idProducto = "NULL";
+    const timestamp = new Date();
+    const nombre = data.nombre;
+    const descripcion = data.descripcion;
+    const codigo = data.codigo;
+    const url = data.url;
+    const precio = data.precio;
+    const stock = data.stock;
 
-  connection.query(sql, [product, password], (error, result) => {
-    if (error) {
-      throw new Error(error);
-    } else {
-      return result;
-    }
+    connection.query(
+      sql,
+      [idProducto, timestamp, nombre, descripcion, codigo, url, precio, stock],
+      (error, result) => {
+        if (error) {
+          return reject(error);
+        } else {
+          return resolve(result);
+        }
+      }
+    );
   });
 }
 
 //Update product
 async function updateProduct(data) {
-  const sql =
-    `UPDATE USER SET product=?, password=?  WHERE idProduct=` + data.idProduct;
+  console.log(data);
+  return new Promise((resolve, reject) => {
+    const sql =
+      `UPDATE PRODUCTO SET idProducto=?, timestamp=?, nombre=?, descripcion=?, codigo=?, url=?, precio=?, stock=?  WHERE idProducto=` +
+      data.idProducto;
 
-  const product = data.product;
-  const password = data.password;
+    const idProducto = data.idProducto;
+    const timestamp = new Date();
+    const nombre = data.nombre;
+    const descripcion = data.descripcion;
+    const codigo = data.codigo;
+    const url = data.url;
+    const precio = data.precio;
+    const stock = data.stock;
 
-  connection.query(sql, [product, password], (error, result) => {
-    if (error) {
-      throw new Error(error);
-    } else {
-      return result;
-    }
+    connection.query(
+      sql,
+      [idProducto, timestamp, nombre, descripcion, codigo, url, precio, stock],
+      (error, result) => {
+        if (error) {
+          return reject(error);
+        } else {
+          return resolve(result);
+        }
+      }
+    );
   });
 }
 
 //Delete product
 async function deleteProduct(idProduct) {
-  //Call other tables delete function
-
-  const sql = `DELETE FROM USER WHERE idProduct=` + idProduct;
-
-  connection.query(sql, [idProduct], (error, result) => {
-    if (error) {
-      throw new Error(error);
-    } else {
-      return "Product deleted successfully";
-    }
+  return new Promise((resolve, reject) => {
+    const sql = `DELETE FROM PRODUCTO WHERE idProducto=` + idProduct;
+    connection.query(sql, [idProduct], (error, result) => {
+      if (error) {
+        return reject(error);
+      } else {
+        return resolve(result);
+      }
+    });
   });
 }
 module.exports = {

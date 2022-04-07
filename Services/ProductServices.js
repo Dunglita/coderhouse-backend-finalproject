@@ -8,15 +8,16 @@ module.exports = {
   getProduct: async (idProduct) => {
     if (idProduct == undefined || idProduct == null) {
       try {
-        const productos = await products.getAllProducts();
-        return productos;
+        const items = await products.getAllProducts();
+        return items;
       } catch (error) {
         throw new Error(error.message);
       }
     }
+
     try {
-      const product = productRepository.getProduct(idProduct);
-      return product;
+      const item = products.getProduct(idProduct);
+      return item;
     } catch (error) {
       throw new Error(error.message);
     }
@@ -24,7 +25,7 @@ module.exports = {
 
   createProduct: async (data) => {
     try {
-      const newProduct = productRepository.createProduct(data);
+      const newProduct = products.createProduct(data);
       return newProduct;
     } catch (error) {
       throw new Error(error.message);
@@ -33,7 +34,7 @@ module.exports = {
 
   updateProduct: async (data) => {
     try {
-      const product = productRepository.updateProduct(data);
+      const product = products.updateProduct(data);
       return product;
     } catch (error) {
       throw new Error(error.message);
@@ -42,7 +43,7 @@ module.exports = {
 
   deleteProduct: async (idProduct) => {
     try {
-      const product = productRepository.deleteProduct(idProduct);
+      const product = products.deleteProduct(idProduct);
       return product;
     } catch (error) {
       throw new Error(error.message);
