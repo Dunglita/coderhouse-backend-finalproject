@@ -1,80 +1,90 @@
 const connection = require("./ConnectionDB.js");
 
 //Get cart
-function getCart(idCart) {
-  const sql = `SELECT * FROM USER WHERE idCart = ` + idCart;
-  connection.query(sql, (error, result) => {
-    if (error) {
-      throw new Error(error);
-    } else {
-      console.log(result);
-      return result;
-    }
+function getCartProducts(idCart) {
+  return new Promise((resolve, reject) => {
+    const sql = `SELECT * FROM PRODUCTO WHERE idProducto IN (SELECT idProducto FROM PRODUCTO_CARRITO WHERE idCarrito =  + ${idCart}) `;
+
+    connection.query(sql, (error, result) => {
+      if (error) {
+        return reject(error);
+      } else {
+        return resolve(result);
+      }
+    });
   });
 }
 
 // Create cart
 function createCart(data) {
-  const sql = `INSERT INTO cart(cart, password) VALUES(?, ?)`;
-  const cart = data.cart;
-  const password = data.password;
+  return new Promise((resolve, reject) => {
+    const sql = `INSERT INTO CARRITO (idCarrito, timestamp) VALUES(?, ?)`;
+    const idCarrito = "NULL";
+    const timestamp = new Date();
 
-  connection.query(sql, [cart, password], (error, result) => {
-    if (error) {
-      throw new Error(error);
-    } else {
-      return result;
-    }
+    connection.query(sql, [idCarrito, timestamp], (error, result) => {
+      if (error) {
+        return reject(error);
+      } else {
+        return resolve(result);
+      }
+    });
   });
 }
 
 // Add cart product
 function addCartProduct(data) {
-  const sql = `INSERT INTO cart(cart, password) VALUES(?, ?)`;
-  const cart = data.cart;
-  const password = data.password;
+  return new Promise((resolve, reject) => {
+    const sql = `INSERT INTO PRODUCTO_CARRITO (idProducto_Carrito, idCarrito, idProducto) VALUES(?, ?, ?)`;
+    const idProducto_Carrito = "NULL";
+    const idCarrito = data.idCarrito;
+    const idProducto = data.idProducto;
 
-  connection.query(sql, [cart, password], (error, result) => {
-    if (error) {
-      throw new Error(error);
-    } else {
-      return result;
-    }
+    connection.query(
+      sql,
+      [idProducto_Carrito, idCarrito, idProducto],
+      (error, result) => {
+        if (error) {
+          return reject(error);
+        } else {
+          return resolve(result);
+        }
+      }
+    );
   });
 }
 
 //Delete cart
 function deleteCart(idCart) {
-  //Call other tables delete function
+  return new Promise((resolve, reject) => {
+    const sql = `DELETE FROM CARRITO WHERE idCarrito=` + idCart;
 
-  const sql = `DELETE FROM USER WHERE idCart=` + idCart;
-
-  connection.query(sql, [idCart], (error, result) => {
-    if (error) {
-      throw new Error(error);
-    } else {
-      return "Cart deleted successfully";
-    }
+    connection.query(sql, [idCart], (error, result) => {
+      if (error) {
+        return reject(error);
+      } else {
+        return resolve(result);
+      }
+    });
   });
 }
 
 //Delete cart product
 function deleteCartProduct(idCart) {
-  //Call other tables delete function
-
-  const sql = `DELETE FROM USER WHERE idCart=` + idCart;
-
-  connection.query(sql, [idCart], (error, result) => {
-    if (error) {
-      throw new Error(error);
-    } else {
-      return "Cart deleted successfully";
-    }
+  return new Promise((resolve, reject) => {
+    const sql = `DELETE FROM PRODUCTO_CARRITO WHERE idCarrito=` + idCart;
+    connection.query(sql, [idCart], (error, result) => {
+      if (error) {
+        return reject(error);
+      } else {
+        return resolve(result);
+      }
+    });
   });
 }
 
 module.exports = {
-  getCart: getCart,
+  getCartProducts: getCartProducts,
   createCart: createCart,
   addCartProduct: addCartProduct,
   deleteCart: deleteCart,

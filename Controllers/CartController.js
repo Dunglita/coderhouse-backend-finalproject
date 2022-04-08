@@ -2,12 +2,11 @@ const { carts } = require("../Services/Index.js");
 
 module.exports = {
   //Search cart
-  getCart: async (req, res) => {
+  getCartProducts: async (req, res) => {
     const idCart = req.params.id;
     try {
-      const cart = await carts.getCart(idCart);
+      const cart = await carts.getCartProducts(idCart);
       return res.status(200).json({
-        status: 200,
         data: cart,
         message: "Cart found succesfully",
       });
@@ -20,13 +19,13 @@ module.exports = {
   createCart: async (req, res) => {
     const data = {
       id: NULL,
-      timestamp: NULL,
-      //FIXME:ver relacion 1-n o m-n en base de datos
+      timestamp: new Date(),
+      //FIXME: Solo se le puede agregar un producto al carrito
     };
+
     try {
       const cart = await carts.createCart(data);
       return res.status(201).json({
-        status: 201,
         data: cart,
         message: "Cart created succesfully",
       });
@@ -35,14 +34,13 @@ module.exports = {
     }
   },
 
-  //Add cart product
+  //Add  product to cart
   addCartProduct: async (req, res) => {
     try {
       const cart = await carts.addCartProduct(data);
       return res.status(201).json({
-        status: 201,
         data: cart,
-        message: "Cart created succesfully",
+        message: "Product added to cart succesfully",
       });
     } catch (error) {
       return res.status(500).json({ status: 500, message: error.message });
@@ -52,9 +50,8 @@ module.exports = {
   //Delete cart
   deleteCart: async (req, res) => {
     try {
-      const cart = await carts.deleteCart(idCart);
+      const cart = await carts.deleteCart(req.idCart);
       return res.status(200).json({
-        status: 200,
         data: cart,
         message: "Cart deleted succesfully",
       });
@@ -63,12 +60,11 @@ module.exports = {
     }
   },
 
-  //Delete cart
+  //Delete product from cart
   deleteCartProduct: async (req, res) => {
     try {
-      const cart = await carts.deleteCartProduct(idCart);
+      const cart = await carts.deleteCartProduct(req.idProduct);
       return res.status(200).json({
-        status: 200,
         data: cart,
         message: "Cart deleted succesfully",
       });

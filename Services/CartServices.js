@@ -1,12 +1,9 @@
-const cartRepository = require("../Repositories/CartRepository.js");
-
-//Variabe de control para habilitar/deshabilitar rutas
-const isAdmin = true;
+const { carts } = require("../Repositories/Index.js");
 
 module.exports = {
-  getCart: async (idCart) => {
+  getCartProducts: async (idCart) => {
     try {
-      const cart = await cartRepository.getCart(idCart);
+      const cart = await carts.getCartProducts(idCart);
       return cart;
     } catch (error) {
       throw new Error(error.message);
@@ -15,7 +12,7 @@ module.exports = {
 
   createCart: async (data) => {
     try {
-      const newCart = await cartRepository.createCart(data);
+      const newCart = await carts.createCart(data);
       return newCart;
     } catch (error) {
       throw new Error(error.message);
@@ -24,7 +21,7 @@ module.exports = {
 
   addCartProduct: async (data) => {
     try {
-      const newCart = await cartRepository.addCartProduct(data);
+      const newCart = await carts.addCartProduct(data);
       return newCart;
     } catch (error) {
       throw new Error(error.message);
@@ -33,7 +30,7 @@ module.exports = {
 
   deleteCart: async (idCart) => {
     try {
-      const cart = await cartRepository.deleteCart(idCart);
+      const cart = await carts.deleteCart(idCart);
       return cart;
     } catch (error) {
       throw new Error(error.message);
@@ -42,7 +39,7 @@ module.exports = {
 
   deleteCartProduct: async (idCart) => {
     try {
-      const cart = await cartRepository.deleteCartProduct(idCart);
+      const cart = await carts.deleteCartProduct(idCart);
       return cart;
     } catch (error) {
       throw new Error(error.message);
