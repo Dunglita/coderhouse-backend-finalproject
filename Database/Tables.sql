@@ -15,7 +15,15 @@ CREATE TABLE CARRITO
 (
 idCarrito int(10) AUTO_INCREMENT not null,
 timestamp timestamp not null,
+primary key (idCarrito)
+);
+
+CREATE TABLE PRODUCTO_CARRITO
+(
+idProductoCarrito int(10) AUTO_INCREMENT not null,
+idCarrito int(10) not null,
 idProducto int(10) not null,
 foreign key (idProducto) references PRODUCTO(idProducto),
-primary key (idCarrito)
+foreign key (idCarrito) references CARRITO(idCarrito),
+primary key (idProductoCarrito)
 );
