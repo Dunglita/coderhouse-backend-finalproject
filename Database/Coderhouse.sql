@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-04-2022 a las 23:22:54
+-- Tiempo de generación: 13-04-2022 a las 01:52:30
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.3.31
 
@@ -37,7 +37,9 @@ CREATE TABLE `carrito` (
 --
 
 INSERT INTO `carrito` (`idCarrito`, `timestamp`) VALUES
-(2, '2022-04-08 01:52:53');
+(2, '2022-04-08 01:52:53'),
+(10, '2022-04-12 23:51:31'),
+(11, '2022-04-12 23:51:32');
 
 -- --------------------------------------------------------
 
@@ -61,7 +63,8 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idProducto`, `timestamp`, `nombre`, `descripcion`, `codigo`, `url`, `precio`, `stock`) VALUES
-(1, '2022-04-08 00:23:08', 'Carne', 'Un pedaso de carne', 'car55', 'www.google.com', 555, 77);
+(1, '2022-04-08 00:23:08', 'Carne', 'Un pedaso de carne', 'car55', 'www.google.com', 555, 77),
+(2, '2022-04-08 03:23:08', 'Lapiz', 'Un lapiz', 'lap55', 'www.google.com', 5, 7);
 
 -- --------------------------------------------------------
 
@@ -80,7 +83,13 @@ CREATE TABLE `producto_carrito` (
 --
 
 INSERT INTO `producto_carrito` (`idProductoCarrito`, `idCarrito`, `idProducto`) VALUES
-(1, 2, 1);
+(2, 2, 1),
+(11, 2, 2),
+(12, 2, 2),
+(13, 2, 2),
+(14, 2, 2),
+(15, 2, 2),
+(16, 2, 2);
 
 --
 -- Índices para tablas volcadas
@@ -114,19 +123,19 @@ ALTER TABLE `producto_carrito`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `idCarrito` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idCarrito` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idProducto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idProducto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `producto_carrito`
 --
 ALTER TABLE `producto_carrito`
-  MODIFY `idProductoCarrito` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idProductoCarrito` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas
