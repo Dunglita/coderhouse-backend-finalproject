@@ -26,7 +26,7 @@ module.exports = {
     try {
       const cart = await carts.createCart(data);
       return res.status(201).json({
-        data: cart,
+        cartId: cart.insertId,
         message: "Cart created succesfully",
       });
     } catch (error) {
@@ -37,9 +37,14 @@ module.exports = {
   //Add  product to cart
   addCartProduct: async (req, res) => {
     try {
-      const cart = await carts.addCartProduct(data);
+      const data = {
+        idCarrito: req.params.id,
+        idProducto: req.query.idProducto,
+      };
+
+      const cartProduct = await carts.addCartProduct(data);
       return res.status(201).json({
-        data: cart,
+        idOnCart: cartProduct.insertId,
         message: "Product added to cart succesfully",
       });
     } catch (error) {
@@ -52,7 +57,6 @@ module.exports = {
     try {
       const cart = await carts.deleteCart(req.params.id);
       return res.status(200).json({
-        data: cart,
         message: "Cart deleted succesfully",
       });
     } catch (error) {
@@ -62,11 +66,15 @@ module.exports = {
 
   //Delete product from cart
   deleteCartProduct: async (req, res) => {
+    console.log(req.params);
+    const data = {
+      idProducto: req.params.id_prod,
+      idCarrito: req.params.id,
+    };
     try {
-      const cart = await carts.deleteCartProduct(req.idProduct);
+      const cart = await carts.deleteCartProduct(data);
       return res.status(200).json({
-        data: cart,
-        message: "Cart deleted succesfully",
+        message: "Cart product deleted succesfully",
       });
     } catch (error) {
       return res.status(500).json({ status: 500, message: error.message });

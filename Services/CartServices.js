@@ -30,9 +30,11 @@ module.exports = {
 
   deleteCart: async (idCart) => {
     try {
+      await carts.deleteCartRelationships(idCart);
       const cart = await carts.deleteCart(idCart);
       return cart;
     } catch (error) {
+      console.log(error);
       throw new Error(error.message);
     }
   },

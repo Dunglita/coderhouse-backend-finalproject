@@ -1,10 +1,10 @@
 const connection = require("./ConnectionDB.js");
 
 //Get cart
+//FIXME: No tiene en cuenta la cantidad del mismo producto que hay en el carrito
 function getCartProducts(idCart) {
   return new Promise((resolve, reject) => {
     const sql = `SELECT * FROM PRODUCTO WHERE idProducto IN (SELECT idProducto FROM PRODUCTO_CARRITO WHERE idCarrito =  + ${idCart}) `;
-
     connection.query(sql, (error, result) => {
       if (error) {
         return reject(error);
@@ -35,14 +35,15 @@ function createCart(data) {
 // Add cart product
 function addCartProduct(data) {
   return new Promise((resolve, reject) => {
-    const sql = `INSERT INTO PRODUCTO_CARRITO (idProducto_Carrito, idCarrito, idProducto) VALUES(?, ?, ?)`;
-    const idProducto_Carrito = "NULL";
+    const sql = `INSERT INTO PRODUCTO_CARRITO (idProductoCarrito, idCarrito, idProducto) VALUES(?, ?, ?)`;
+    const idProductoCarrito = "NULL";
     const idCarrito = data.idCarrito;
     const idProducto = data.idProducto;
 
     connection.query(
       sql,
-      [idProducto_Carrito, idCarrito, idProducto],
+
+      [idProductoCarrito, idCarrito, idProducto],
       (error, result) => {
         if (error) {
           return reject(error);
@@ -69,15 +70,30 @@ function deleteCart(idCart) {
   });
 }
 
+//Delete Cart Relationships
+function deleteCartRelationships(idCart) {
+  return new Promise((resolve, reject) => {
+    const sql = `DELETE FROM PRODUCTO_CARRITO WHERE idCarrito=` + idCart;
+
+    connection.query(sql, [idCart], (error, result) => {
+      if (error) {
+        return reject(error);
+      } else {
+        return resolve(result);
+      }
+    });
+  });
+}
+
 //Delete cart product
 function deleteCartProduct(data) {
   return new Promise((resolve, reject) => {
     const idCarrito = data.idCarrito;
-    const idProduct = data.idProduct;
+    const idProduct = data.idProducto;
     const sql =
       `DELETE FROM PRODUCTO_CARRITO WHERE idCarrito=` +
       idCarrito +
-      ` AND idProduct =` +
+      ` AND idProducto =` +
       idProduct;
     connection.query(sql, [idCarrito, idProduct], (error, result) => {
       if (error) {
@@ -94,5 +110,6 @@ module.exports = {
   createCart: createCart,
   addCartProduct: addCartProduct,
   deleteCart: deleteCart,
+  deleteCartRelationships: deleteCartRelationships,
   deleteCartProduct: deleteCartProduct,
 };

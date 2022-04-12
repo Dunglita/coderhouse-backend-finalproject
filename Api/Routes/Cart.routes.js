@@ -12,7 +12,7 @@ function cartRoutes() {
     .use(compression());
 
   cartRouter
-    .get("/:id/productos", cart.getCartProducts) //Carrito actual
+    .get("/:id/productos", cart.getCartProducts)
     .post("/", cart.createCart)
     .post("/:id/productos", cart.addCartProduct)
     .delete("/:id", cart.deleteCart)
