@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-04-2022 a las 23:03:51
+-- Tiempo de generación: 12-04-2022 a las 23:22:54
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.3.31
 
@@ -76,6 +76,13 @@ CREATE TABLE `producto_carrito` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
+-- Volcado de datos para la tabla `producto_carrito`
+--
+
+INSERT INTO `producto_carrito` (`idProductoCarrito`, `idCarrito`, `idProducto`) VALUES
+(1, 2, 1);
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -119,7 +126,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `producto_carrito`
 --
 ALTER TABLE `producto_carrito`
-  MODIFY `idProductoCarrito` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `idProductoCarrito` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
