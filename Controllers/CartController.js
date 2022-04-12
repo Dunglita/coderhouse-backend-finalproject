@@ -18,7 +18,7 @@ module.exports = {
   //Create cart
   createCart: async (req, res) => {
     const data = {
-      id: NULL,
+      id: "NULL",
       timestamp: new Date(),
       //FIXME: Solo se le puede agregar un producto al carrito
     };
@@ -50,7 +50,7 @@ module.exports = {
   //Delete cart
   deleteCart: async (req, res) => {
     try {
-      const cart = await carts.deleteCart(req.idCart);
+      const cart = await carts.deleteCart(req.params.id);
       return res.status(200).json({
         data: cart,
         message: "Cart deleted succesfully",

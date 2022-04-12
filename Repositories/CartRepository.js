@@ -70,10 +70,16 @@ function deleteCart(idCart) {
 }
 
 //Delete cart product
-function deleteCartProduct(idCart) {
+function deleteCartProduct(data) {
   return new Promise((resolve, reject) => {
-    const sql = `DELETE FROM PRODUCTO_CARRITO WHERE idCarrito=` + idCart;
-    connection.query(sql, [idCart], (error, result) => {
+    const idCarrito = data.idCarrito;
+    const idProduct = data.idProduct;
+    const sql =
+      `DELETE FROM PRODUCTO_CARRITO WHERE idCarrito=` +
+      idCarrito +
+      ` AND idProduct =` +
+      idProduct;
+    connection.query(sql, [idCarrito, idProduct], (error, result) => {
       if (error) {
         return reject(error);
       } else {
