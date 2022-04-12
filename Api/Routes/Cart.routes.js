@@ -14,7 +14,7 @@ function cartRoutes() {
   cartRouter
     .get("/:id/productos", cart.getCartProducts) //Carrito actual
     .post("/", cart.createCart)
-    .post("/:id/products", cart.addCartProduct)
+    .post("/:id/productos", cart.addCartProduct)
     .delete("/:id", cart.deleteCart)
     .delete("/:id/productos/:id_prod", cart.deleteCartProduct);
 
