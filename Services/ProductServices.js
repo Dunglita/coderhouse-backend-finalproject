@@ -24,6 +24,9 @@ module.exports = {
   },
 
   createProduct: async (data) => {
+    if (!isAdmin) {
+      return { error: "-1", descripcion: "Ruta no autorizada" };
+    }
     try {
       const newProduct = products.createProduct(data);
       return newProduct;
@@ -33,6 +36,9 @@ module.exports = {
   },
 
   updateProduct: async (data) => {
+    if (!isAdmin) {
+      return { error: "-1", descripcion: "Ruta no autorizada" };
+    }
     try {
       const product = products.updateProduct(data);
       return product;
@@ -42,6 +48,9 @@ module.exports = {
   },
 
   deleteProduct: async (idProduct) => {
+    if (!isAdmin) {
+      return { error: "-1", descripcion: "Ruta no autorizada" };
+    }
     try {
       const product = products.deleteProduct(idProduct);
       return product;
